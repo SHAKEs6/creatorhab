@@ -69,3 +69,4 @@ Apache's `mod_rewrite` automatically routes all requests through `public/index.p
 - **Passwords**: The `User.php` model leverages PHP's strong `password_hash()` (bcrypt) algorithm.
 - **Access Control**: Roles (`user`, `admin`, `super_admin`) are stored in sessions via the `AuthController` upon login and can be checked across all controllers.
 # CreatorHub
+# CreatorHub
