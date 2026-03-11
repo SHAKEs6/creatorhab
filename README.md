@@ -70,3 +70,4 @@ Apache's `mod_rewrite` automatically routes all requests through `public/index.p
 - **Access Control**: Roles (`user`, `admin`, `super_admin`) are stored in sessions via the `AuthController` upon login and can be checked across all controllers.
 # CreatorHub
 # CreatorHub
+# CreatorHub
