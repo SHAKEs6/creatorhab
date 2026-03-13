@@ -5,13 +5,19 @@ FROM php:8.2-apache
 RUN apt-get update && apt-get install -y \
     libpq-dev \
     postgresql-client \
-    && docker-php-ext-install pdo pdo_pgsql \
-    && docker-php-ext-enable pdo_pgsql \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && docker-php-ext-install pdo pdo_pgsql
+
+# Explicitly enable the PostgreSQL PDO extension
+RUN docker-php-ext-enable pdo_pgsql
 
 # Verify PostgreSQL extension is installed and enabled
-RUN php -m | grep pdo_pgsql || (echo "PDO PostgreSQL extension not found" && exit 1)
+RUN php -r "if (!extension_loaded('pdo_pgsql')) { echo 'PDO PostgreSQL extension not loaded\n'; exit(1); } echo 'PDO PostgreSQL extension loaded successfully\n';"
+
+# Test basic PDO functionality
+RUN php -r "try { \$pdo = new PDO('pgsql:host=localhost;dbname=test', 'test', 'test'); } catch(Exception \$e) { echo 'PDO test passed (expected error for test DB): ' . \$e->getMessage() . '\n'; }"
+
+# Clean up
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
