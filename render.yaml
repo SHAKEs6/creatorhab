@@ -29,6 +29,7 @@ services:
       - key: MPESA_CONSUMER_SECRET
         fromSecret: mpesa_consumer_secret
 
-  - type: pgsql
-    name: creatorhub-db
-    ipAllowList: [] # Only accessible by other services in this project
+databases:
+  - name: creatorhub-db
+    databaseName: creator_platform
+    user: creator_user
