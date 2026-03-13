@@ -61,7 +61,7 @@ class MpesaController extends Controller {
               'PartyA' => $phone,
               'PartyB' => $BusinessShortCode,
               'PhoneNumber' => $phone,
-              'CallBackURL' => 'https://8ce0-102-205-238-5.ngrok-free.app/mpesa/callback',
+              'CallBackURL' => URLROOT . '/mpesa/callback',
               'AccountReference' => $transactionId,
               'TransactionDesc' => $itemName
             );
@@ -205,7 +205,7 @@ class MpesaController extends Controller {
           'PartyA' => $phone,
           'PartyB' => $BusinessShortCode,
           'PhoneNumber' => $phone,
-          'CallBackURL' => 'https://8ce0-102-205-238-5.ngrok-free.app/mpesa/callback',
+          'CallBackURL' => URLROOT . '/mpesa/callback',
           'AccountReference' => 'TestPayment',
           'TransactionDesc' => 'Testing M-Pesa Integration'
         );

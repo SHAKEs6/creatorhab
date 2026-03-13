@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: creatorhub
+    runtime: php
+    buildCommand: "echo 'No build step required'"
+    startCommand: "php -S 0.0.0.0:$PORT -t public public/router.php"
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: DB_HOST
+        fromSecret: db_host
+      - key: DB_USER
+        fromSecret: db_user
+      - key: DB_PASS
+        fromSecret: db_pass
+      - key: DB_NAME
+        fromSecret: db_name
+      - key: URLROOT
+        fromService:
+          type: web
+          name: creatorhub
+          property: host
+      - key: MPESA_CONSUMER_KEY
+        fromSecret: mpesa_consumer_key
+      - key: MPESA_CONSUMER_SECRET
+        fromSecret: mpesa_consumer_secret
