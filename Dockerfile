@@ -7,8 +7,11 @@ RUN apt-get update && apt-get install -y \
     postgresql-client \
     && docker-php-ext-install pdo pdo_pgsql
 
-# Explicitly enable the PostgreSQL PDO extension
+# Enable the PostgreSQL PDO extension
 RUN docker-php-ext-enable pdo_pgsql
+
+# Create custom PHP configuration to ensure extension is loaded
+RUN echo "extension=pdo_pgsql.so" > /usr/local/etc/php/conf.d/pdo_pgsql.ini
 
 # Verify PostgreSQL extension is installed and enabled
 RUN php -r "if (!extension_loaded('pdo_pgsql')) { echo 'PDO PostgreSQL extension not loaded\n'; exit(1); } echo 'PDO PostgreSQL extension loaded successfully\n';"
