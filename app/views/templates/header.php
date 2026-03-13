@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo SITENAME; ?> | <?php echo isset($data['title']) ? $data['title'] : 'Start, Grow & Monetize Your YouTube Channel'; ?></title>
     <meta name="description" content="The ultimate creator platform. Learn how to grow your YouTube channel, buy monetized channels, or book an expert consultation today.">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/styles.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="<?php echo URLROOT; ?>/public/script.js"></script>
 </head>
 <body>
 
@@ -25,6 +26,24 @@
                 <li><a href="<?php echo URLROOT; ?>/resources">Resources</a></li>
                 <?php if(isset($_SESSION['user_id'])) : ?>
                     <li><a href="<?php echo URLROOT; ?>/dashboard">Dashboard</a></li>
+                    <!-- Notification Bell -->
+                    <li class="notification-bell-container">
+                        <button class="notification-bell" id="notification-bell">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge" id="notification-count" style="display: none;">0</span>
+                        </button>
+                        <div class="notification-dropdown" id="notification-dropdown">
+                            <div class="notification-header">
+                                <h3>Notifications</h3>
+                                <button class="close-notifications" id="close-notifications">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="notification-list" id="notification-list">
+                                <p class="empty-message">No notifications yet</p>
+                            </div>
+                        </div>
+                    </li>
                     <li><a href="<?php echo URLROOT; ?>/auth/logout">Logout</a></li>
                 <?php else : ?>
                     <li><a href="<?php echo URLROOT; ?>/auth/login">Login</a></li>

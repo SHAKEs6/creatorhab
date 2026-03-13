@@ -75,20 +75,106 @@ CREATE TABLE IF NOT EXISTS bookings (
     FOREIGN KEY (consultation_id) REFERENCES consultations(id) ON DELETE CASCADE
 );
 
--- Insert Super Admin & Admin Roles
-INSERT INTO users (name, email, password_hash, role) VALUES 
-('Shakes', 'shakesian6@gmail.com', '$2y$12$2It9GkMrQJZk29sgCho13.YqzWzqlRuFEHF.km.HPvqjsgFlMR1oS', 'super_admin'),
-('Platform Admin', 'admin@creatorhub.com', '$2y$12$2It9GkMrQJZk29sgCho13.YqzWzqlRuFEHF.km.HPvqjsgFlMR1oS', 'admin');
--- Note: Default password for both is 'admin@1234'
+-- Guides Table
+CREATE TABLE IF NOT EXISTS guides (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    content LONGTEXT NOT NULL,
+    category VARCHAR(100) NOT NULL,
+    thumbnail VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
--- Insert Default Courses
-INSERT INTO courses (title, description, price, thumbnail, duration_hours) VALUES 
-('YouTube for Beginners', 'The ultimate 101 guide to launching your first channel correctly.', 49.00, 'th-1.jpg', 2.5),
-('Get 1,000 Subs Fast', 'Actionable, proven strategies to hit the 1K milestone.', 99.00, 'th-2.jpg', 5.0),
-('YT Automation Masterclass', 'Build cash-cow faceless channels and automate the entire process.', 199.00, 'th-3.jpg', 12.0),
-('Viral Shorts Strategy', 'Dominate YouTube Shorts and gain explosive growth.', 79.00, 'th-4.jpg', 3.0);
+-- Videos Table (YouTube Embedding)
+CREATE TABLE IF NOT EXISTS videos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    youtube_id VARCHAR(50) NOT NULL,
+    category VARCHAR(100),
+    is_trending BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
--- Insert Default Consultations
-INSERT INTO consultations (title, duration_minutes, price) VALUES 
-('30 Minute Strategy Call', 30, 99.00),
-('1 Hour Deep Dive', 60, 150.00);
+-- Resources Table
+CREATE TABLE IF NOT EXISTS resources (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    file_path VARCHAR(255) NOT NULL,
+    category VARCHAR(100),
+    rating INT DEFAULT 0,
+    likes INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Posts Table (News/Updates)
+CREATE TABLE IF NOT EXISTS posts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    image VARCHAR(255),
+    page_location ENUM('home', 'guides', 'news') DEFAULT 'home',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Marketplace Table (Products)
+CREATE TABLE IF NOT EXISTS products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    category VARCHAR(100),
+    image VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Course Videos (Many-to-Many Relationship)
+CREATE TABLE IF NOT EXISTS course_videos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    course_id INT NOT NULL,
+    video_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE,
+    FOREIGN KEY (video_id) REFERENCES videos(id) ON DELETE CASCADE
+);
+
+-- Insert Sample Data for Guides
+INSERT INTO guides (title, description, content, category, thumbnail) VALUES 
+('Perfect Niche Selection', 'How to find a high-CPM niche that you actually enjoy.', 'Full guide content here...', 'Setup', 'guide-1.jpg'),
+('Editing for Retention', 'Master the fast-paced editing style that keeps viewers hooked.', 'Full guide content here...', 'Growth', 'guide-2.jpg');
+
+-- Insert Sample Data for Videos
+INSERT INTO videos (title, youtube_id, category, is_trending) VALUES 
+('How to Grow on YouTube 2026', 'dQw4w9WgXcQ', 'Growth', TRUE),
+('YouTube Automation Explained', 'jNQXAC9IVRw', 'Automation', TRUE);
+
+-- Insert Sample Data for Resources
+INSERT INTO resources (title, description, file_path, category) VALUES 
+('Launch Checklist', '50-point checklist for new channels.', 'checklist.pdf', 'Strategy'),
+('High-CTR Font Pack', '10 fonts that boost your CTR.', 'fonts.zip', 'Design');
+
+-- Insert Sample Data for Posts
+INSERT INTO posts (title, content, page_location) VALUES 
+('Website Launch!', 'Welcome to the ultimate YouTube Creator Platform.', 'home'),
+('New Kurs Released', 'Check out our new Automation masterclass.', 'home');
+
+-- Note: Default password for both shakesian6@gmail.com and admin@creatorhub.com is 'admin@1234'
+-- Already inserted super_admin and admin in previous steps.
+
+-- Transactions/Orders
+CREATE TABLE IF NOT EXISTS transactions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    item_name VARCHAR(255) NOT NULL,
+    item_type ENUM('course', 'consultation', 'channel', 'product') NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    currency VARCHAR(3) DEFAULT 'KES',
+    payment_method ENUM('mpesa', 'paypal', 'other') DEFAULT 'mpesa',
+    transaction_id VARCHAR(255),
+    phone_number VARCHAR(255),
+    status ENUM('pending', 'completed', 'failed') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
+);

@@ -1,9 +1,5 @@
 <?php
-/*
- * App Core Class
- * Creates URL & loads core controller
- * URL FORMAT - /controller/method/params
- */
+
 class App {
     protected $currentController = 'HomeController';
     protected $currentMethod = 'index';
@@ -13,12 +9,34 @@ class App {
         $url = $this->getUrl();
 
         // Look in controllers for first value
-        if(isset($url[0]) && file_exists('../app/controllers/' . ucwords($url[0]). 'Controller.php')){
-            $this->currentController = ucwords($url[0]) . 'Controller';
-            unset($url[0]);
+        if(isset($url[0])){
+            $raw = $url[0];
+            // try transformation: hyphen-separated -> PascalCase
+            $transformed = str_replace(' ', '', ucwords(str_replace('-', ' ', $raw)));
+            $transformed = ucfirst($transformed);
+
+            // list of possible controller names to try
+            $candidates = [$transformed, ucfirst($raw)];
+
+            // scan controllers directory for a case-insensitive match as fallback
+            foreach (glob(APPROOT . '/controllers/*Controller.php') as $file) {
+                $name = basename($file, 'Controller.php');
+                if (strtolower($name) === strtolower($raw) || strtolower($name) === strtolower($transformed)) {
+                    $candidates[] = $name;
+                }
+            }
+
+            // pick the first candidate that exists
+            foreach ($candidates as $candidate) {
+                if (file_exists(APPROOT . '/controllers/' . $candidate . 'Controller.php')) {
+                    $this->currentController = $candidate . 'Controller';
+                    unset($url[0]);
+                    break;
+                }
+            }
         }
 
-        require_once '../app/controllers/'. $this->currentController . '.php';
+        require_once APPROOT . '/controllers/'. $this->currentController . '.php';
         $this->currentController = new $this->currentController;
 
         // Check for second part of url

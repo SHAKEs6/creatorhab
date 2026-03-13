@@ -1,0 +1,609 @@
+# Code Citations
+
+## License: unknown
+https://github.com/slavkoss/fwphp/blob/f0fba7e333459308b1b3c59ecdb13bdc06445bd5/fwphp/glomodul/z_examples/02_mvc/shareposts/app/libraries/Core.php
+
+```
+0]) . 'Controller';
+            // Unset 0 Index
+            unset($url[0]);
+        }
+
+        // Require the controller
+        require_once '../app/controllers/' . $this->currentController . '.php';
+
+        // Instantiate controller class
+        $this->currentController = new $this->currentController;
+
+        // Check for second part of url
+        if (isset($url[1])) {
+            // Check to see if method exists in controller
+            if (method_exists($this->currentController, $url[1]
+```
+
+
+## License: unknown
+https://github.com/DJahvoe/SavMVC-PHP-Framework/blob/e879ac15e6d15937d5a66e70178f98d97a23c870/app/libraries/Core.php
+
+```
+0]) . 'Controller';
+            // Unset 0 Index
+            unset($url[0]);
+        }
+
+        // Require the controller
+        require_once '../app/controllers/' . $this->currentController . '.php';
+
+        // Instantiate controller class
+        $this->currentController = new $this->currentController;
+
+        // Check for second part of url
+        if (isset($url[1])) {
+            // Check to see if method exists in controller
+            if (method_exists($this->currentController, $url[1]
+```
+
+
+## License: unknown
+https://github.com/EmadBrown/Texas-scramble/blob/30be34c3e799aabb4558f8c489a2248f10c81956/app/libraries/Core.php
+
+```
+0]) . 'Controller';
+            // Unset 0 Index
+            unset($url[0]);
+        }
+
+        // Require the controller
+        require_once '../app/controllers/' . $this->currentController . '.php';
+
+        // Instantiate controller class
+        $this->currentController = new $this->currentController;
+
+        // Check for second part of url
+        if (isset($url[1])) {
+            // Check to see if method exists in controller
+            if (method_exists($this->currentController, $url[1]
+```
+
+
+## License: unknown
+https://github.com/EmadBrown/Texas-scramble/blob/30be34c3e799aabb4558f8c489a2248f10c81956/app/libraries/Core.php
+
+```
+0]) . 'Controller';
+            // Unset 0 Index
+            unset($url[0]);
+        }
+
+        // Require the controller
+        require_once '../app/controllers/' . $this->currentController . '.php';
+
+        // Instantiate controller class
+        $this->currentController = new $this->currentController;
+
+        // Check for second part of url
+        if (isset($url[1])) {
+            // Check to see if method exists in controller
+            if (method_exists($this->currentController, $url[1])) {
+                $this->currentMethod = $url
+```
+
+
+## License: unknown
+https://github.com/slavkoss/fwphp/blob/f0fba7e333459308b1b3c59ecdb13bdc06445bd5/fwphp/glomodul/z_examples/02_mvc/shareposts/app/libraries/Core.php
+
+```
+0]) . 'Controller';
+            // Unset 0 Index
+            unset($url[0]);
+        }
+
+        // Require the controller
+        require_once '../app/controllers/' . $this->currentController . '.php';
+
+        // Instantiate controller class
+        $this->currentController = new $this->currentController;
+
+        // Check for second part of url
+        if (isset($url[1])) {
+            // Check to see if method exists in controller
+            if (method_exists($this->currentController, $url[1])) {
+                $this->currentMethod = $url
+```
+
+
+## License: unknown
+https://github.com/DJahvoe/SavMVC-PHP-Framework/blob/e879ac15e6d15937d5a66e70178f98d97a23c870/app/libraries/Core.php
+
+```
+0]) . 'Controller';
+            // Unset 0 Index
+            unset($url[0]);
+        }
+
+        // Require the controller
+        require_once '../app/controllers/' . $this->currentController . '.php';
+
+        // Instantiate controller class
+        $this->currentController = new $this->currentController;
+
+        // Check for second part of url
+        if (isset($url[1])) {
+            // Check to see if method exists in controller
+            if (method_exists($this->currentController, $url[1])) {
+                $this->currentMethod = $url
+```
+
+
+## License: unknown
+https://github.com/DJahvoe/SavMVC-PHP-Framework/blob/e879ac15e6d15937d5a66e70178f98d97a23c870/app/libraries/Core.php
+
+```
+0]) . 'Controller';
+            // Unset 0 Index
+            unset($url[0]);
+        }
+
+        // Require the controller
+        require_once '../app/controllers/' . $this->currentController . '.php';
+
+        // Instantiate controller class
+        $this->currentController = new $this->currentController;
+
+        // Check for second part of url
+        if (isset($url[1])) {
+            // Check to see if method exists in controller
+            if (method_exists($this->currentController, $url[1])) {
+                $this->currentMethod = $url[1];
+                // Unset 1 index
+                unset($
+```
+
+
+## License: unknown
+https://github.com/EmadBrown/Texas-scramble/blob/30be34c3e799aabb4558f8c489a2248f10c81956/app/libraries/Core.php
+
+```
+0]) . 'Controller';
+            // Unset 0 Index
+            unset($url[0]);
+        }
+
+        // Require the controller
+        require_once '../app/controllers/' . $this->currentController . '.php';
+
+        // Instantiate controller class
+        $this->currentController = new $this->currentController;
+
+        // Check for second part of url
+        if (isset($url[1])) {
+            // Check to see if method exists in controller
+            if (method_exists($this->currentController, $url[1])) {
+                $this->currentMethod = $url[1];
+                // Unset 1 index
+                unset($
+```
+
+
+## License: unknown
+https://github.com/slavkoss/fwphp/blob/f0fba7e333459308b1b3c59ecdb13bdc06445bd5/fwphp/glomodul/z_examples/02_mvc/shareposts/app/libraries/Core.php
+
+```
+0]) . 'Controller';
+            // Unset 0 Index
+            unset($url[0]);
+        }
+
+        // Require the controller
+        require_once '../app/controllers/' . $this->currentController . '.php';
+
+        // Instantiate controller class
+        $this->currentController = new $this->currentController;
+
+        // Check for second part of url
+        if (isset($url[1])) {
+            // Check to see if method exists in controller
+            if (method_exists($this->currentController, $url[1])) {
+                $this->currentMethod = $url[1];
+                // Unset 1 index
+                unset($
+```
+
+
+## License: unknown
+https://github.com/slavkoss/fwphp/blob/f0fba7e333459308b1b3c59ecdb13bdc06445bd5/fwphp/glomodul/z_examples/02_mvc/shareposts/app/libraries/Core.php
+
+```
+0]) . 'Controller';
+            // Unset 0 Index
+            unset($url[0]);
+        }
+
+        // Require the controller
+        require_once '../app/controllers/' . $this->currentController . '.php';
+
+        // Instantiate controller class
+        $this->currentController = new $this->currentController;
+
+        // Check for second part of url
+        if (isset($url[1])) {
+            // Check to see if method exists in controller
+            if (method_exists($this->currentController, $url[1])) {
+                $this->currentMethod = $url[1];
+                // Unset 1 index
+                unset($url[1]);
+            }
+        }
+
+        // Get params
+        $this->params = $url ? array_values($url)
+```
+
+
+## License: unknown
+https://github.com/DJahvoe/SavMVC-PHP-Framework/blob/e879ac15e6d15937d5a66e70178f98d97a23c870/app/libraries/Core.php
+
+```
+0]) . 'Controller';
+            // Unset 0 Index
+            unset($url[0]);
+        }
+
+        // Require the controller
+        require_once '../app/controllers/' . $this->currentController . '.php';
+
+        // Instantiate controller class
+        $this->currentController = new $this->currentController;
+
+        // Check for second part of url
+        if (isset($url[1])) {
+            // Check to see if method exists in controller
+            if (method_exists($this->currentController, $url[1])) {
+                $this->currentMethod = $url[1];
+                // Unset 1 index
+                unset($url[1]);
+            }
+        }
+
+        // Get params
+        $this->params = $url ? array_values($url)
+```
+
+
+## License: unknown
+https://github.com/EmadBrown/Texas-scramble/blob/30be34c3e799aabb4558f8c489a2248f10c81956/app/libraries/Core.php
+
+```
+0]) . 'Controller';
+            // Unset 0 Index
+            unset($url[0]);
+        }
+
+        // Require the controller
+        require_once '../app/controllers/' . $this->currentController . '.php';
+
+        // Instantiate controller class
+        $this->currentController = new $this->currentController;
+
+        // Check for second part of url
+        if (isset($url[1])) {
+            // Check to see if method exists in controller
+            if (method_exists($this->currentController, $url[1])) {
+                $this->currentMethod = $url[1];
+                // Unset 1 index
+                unset($url[1]);
+            }
+        }
+
+        // Get params
+        $this->params = $url ? array_values($url)
+```
+
+
+## License: GPL-2.0
+https://github.com/HectorOrdonez/hecnelFramework/blob/0fa167f5e3ffbc96eaf62fca64d96a243029263a/engine/Bootstrap.php
+
+```
+0]) . 'Controller';
+            // Unset 0 Index
+            unset($url[0]);
+        }
+
+        // Require the controller
+        require_once '../app/controllers/' . $this->currentController . '.php';
+
+        // Instantiate controller class
+        $this->currentController = new $this->currentController;
+
+        // Check for second part of url
+        if (isset($url[1])) {
+            // Check to see if method exists in controller
+            if (method_exists($this->currentController, $url[1])) {
+                $this->currentMethod = $url[1];
+                // Unset 1 index
+                unset($url[1]);
+            }
+        }
+
+        // Get params
+        $this->params = $url ? array_values($url) : [];
+
+        // Call a callback with array of params
+        call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
+    }
+
+    public function getUrl() {
+        if (isset($_GET['url'])) {
+            $url = rtrim($_GET['url'], '/');
+            $url = filter_var($url, FILTER_SANITIZE_URL);
+            $url = explode('/', $url);
+            return $url;
+        }
+    }
+}
+```
+
+
+## License: MIT
+https://github.com/thulin82/innebandybokning/blob/3e965116a2d00dfe460380446823b9ce1829798c/src/lib/Core.php
+
+```
+0]) . 'Controller';
+            // Unset 0 Index
+            unset($url[0]);
+        }
+
+        // Require the controller
+        require_once '../app/controllers/' . $this->currentController . '.php';
+
+        // Instantiate controller class
+        $this->currentController = new $this->currentController;
+
+        // Check for second part of url
+        if (isset($url[1])) {
+            // Check to see if method exists in controller
+            if (method_exists($this->currentController, $url[1])) {
+                $this->currentMethod = $url[1];
+                // Unset 1 index
+                unset($url[1]);
+            }
+        }
+
+        // Get params
+        $this->params = $url ? array_values($url) : [];
+
+        // Call a callback with array of params
+        call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
+    }
+
+    public function getUrl() {
+        if (isset($_GET['url'])) {
+            $url = rtrim($_GET['url'], '/');
+            $url = filter_var($url, FILTER_SANITIZE_URL);
+            $url = explode('/', $url);
+            return $url;
+        }
+    }
+}
+```
+
+
+## License: unknown
+https://github.com/slavkoss/fwphp/blob/f0fba7e333459308b1b3c59ecdb13bdc06445bd5/fwphp/glomodul/z_examples/02_mvc/shareposts/app/libraries/Core.php
+
+```
+0]) . 'Controller';
+            // Unset 0 Index
+            unset($url[0]);
+        }
+
+        // Require the controller
+        require_once '../app/controllers/' . $this->currentController . '.php';
+
+        // Instantiate controller class
+        $this->currentController = new $this->currentController;
+
+        // Check for second part of url
+        if (isset($url[1])) {
+            // Check to see if method exists in controller
+            if (method_exists($this->currentController, $url[1])) {
+                $this->currentMethod = $url[1];
+                // Unset 1 index
+                unset($url[1]);
+            }
+        }
+
+        // Get params
+        $this->params = $url ? array_values($url) : [];
+
+        // Call a callback with array of params
+        call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
+    }
+
+    public function getUrl() {
+        if (isset($_GET['url'])) {
+            $url = rtrim($_GET['url'], '/');
+            $url = filter_var($url, FILTER_SANITIZE_URL);
+            $url = explode('/', $url);
+            return $url;
+        }
+    }
+}
+```
+
+
+## License: unknown
+https://github.com/tristanguckenberger/localmvc/blob/e872b0504ef1f005e332e1966b787f0c95ec816e/app/libraries/Core.php
+
+```
+0]) . 'Controller';
+            // Unset 0 Index
+            unset($url[0]);
+        }
+
+        // Require the controller
+        require_once '../app/controllers/' . $this->currentController . '.php';
+
+        // Instantiate controller class
+        $this->currentController = new $this->currentController;
+
+        // Check for second part of url
+        if (isset($url[1])) {
+            // Check to see if method exists in controller
+            if (method_exists($this->currentController, $url[1])) {
+                $this->currentMethod = $url[1];
+                // Unset 1 index
+                unset($url[1]);
+            }
+        }
+
+        // Get params
+        $this->params = $url ? array_values($url) : [];
+
+        // Call a callback with array of params
+        call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
+    }
+
+    public function getUrl() {
+        if (isset($_GET['url'])) {
+            $url = rtrim($_GET['url'], '/');
+            $url = filter_var($url, FILTER_SANITIZE_URL);
+            $url = explode('/', $url);
+            return $url;
+        }
+    }
+}
+```
+
+
+## License: unknown
+https://github.com/DJahvoe/SavMVC-PHP-Framework/blob/e879ac15e6d15937d5a66e70178f98d97a23c870/app/libraries/Core.php
+
+```
+0]) . 'Controller';
+            // Unset 0 Index
+            unset($url[0]);
+        }
+
+        // Require the controller
+        require_once '../app/controllers/' . $this->currentController . '.php';
+
+        // Instantiate controller class
+        $this->currentController = new $this->currentController;
+
+        // Check for second part of url
+        if (isset($url[1])) {
+            // Check to see if method exists in controller
+            if (method_exists($this->currentController, $url[1])) {
+                $this->currentMethod = $url[1];
+                // Unset 1 index
+                unset($url[1]);
+            }
+        }
+
+        // Get params
+        $this->params = $url ? array_values($url) : [];
+
+        // Call a callback with array of params
+        call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
+    }
+
+    public function getUrl() {
+        if (isset($_GET['url'])) {
+            $url = rtrim($_GET['url'], '/');
+            $url = filter_var($url, FILTER_SANITIZE_URL);
+            $url = explode('/', $url);
+            return $url;
+        }
+    }
+}
+```
+
+
+## License: unknown
+https://github.com/EmadBrown/Texas-scramble/blob/30be34c3e799aabb4558f8c489a2248f10c81956/app/libraries/Core.php
+
+```
+0]) . 'Controller';
+            // Unset 0 Index
+            unset($url[0]);
+        }
+
+        // Require the controller
+        require_once '../app/controllers/' . $this->currentController . '.php';
+
+        // Instantiate controller class
+        $this->currentController = new $this->currentController;
+
+        // Check for second part of url
+        if (isset($url[1])) {
+            // Check to see if method exists in controller
+            if (method_exists($this->currentController, $url[1])) {
+                $this->currentMethod = $url[1];
+                // Unset 1 index
+                unset($url[1]);
+            }
+        }
+
+        // Get params
+        $this->params = $url ? array_values($url) : [];
+
+        // Call a callback with array of params
+        call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
+    }
+
+    public function getUrl() {
+        if (isset($_GET['url'])) {
+            $url = rtrim($_GET['url'], '/');
+            $url = filter_var($url, FILTER_SANITIZE_URL);
+            $url = explode('/', $url);
+            return $url;
+        }
+    }
+}
+```
+
+
+## License: unknown
+https://github.com/amin007/mvc-melayu/blob/c1c66b8c5e125065a8e46a78861937b8e18cb1e8/Aplikasi/Kelas/Kitab/Peta2.php
+
+```
+0]) . 'Controller';
+            // Unset 0 Index
+            unset($url[0]);
+        }
+
+        // Require the controller
+        require_once '../app/controllers/' . $this->currentController . '.php';
+
+        // Instantiate controller class
+        $this->currentController = new $this->currentController;
+
+        // Check for second part of url
+        if (isset($url[1])) {
+            // Check to see if method exists in controller
+            if (method_exists($this->currentController, $url[1])) {
+                $this->currentMethod = $url[1];
+                // Unset 1 index
+                unset($url[1]);
+            }
+        }
+
+        // Get params
+        $this->params = $url ? array_values($url) : [];
+
+        // Call a callback with array of params
+        call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
+    }
+
+    public function getUrl() {
+        if (isset($_GET['url'])) {
+            $url = rtrim($_GET['url'], '/');
+            $url = filter_var($url, FILTER_SANITIZE_URL);
+            $url = explode('/', $url);
+            return $url;
+        }
+    }
+}
+```
+

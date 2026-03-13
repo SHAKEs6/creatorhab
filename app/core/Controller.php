@@ -6,16 +6,21 @@
 class Controller {
     // Load model
     public function model($model){
-        require_once '../app/models/' . $model . '.php';
+        require_once APPROOT . '/models/' . $model . '.php';
         return new $model();
     }
 
     // Load view
     public function view($view, $data = []){
-        if(file_exists('../app/views/' . $view . '.php')){
-            require_once '../app/views/' . $view . '.php';
+        $path = APPROOT . '/views/' . $view . '.php';
+        if(file_exists($path)){
+            require_once $path;
         } else {
-            die('View does not exist');
+            // debug stack
+            ob_start();
+            debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+            $trace = ob_get_clean();
+            die("View does not exist: {$view} (looked for {$path})\nStack:\n" . $trace);
         }
     }
 }

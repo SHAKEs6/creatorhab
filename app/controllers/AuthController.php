@@ -1,13 +1,16 @@
 <?php
-class AuthController extends Controller {
+class AuthController extends Controller
+{
     protected $userModel;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->userModel = $this->model('User');
     }
 
-    public function register() {
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    public function register()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (!isset($_POST['csrf_token']) || !verify_csrf_token($_POST['csrf_token'])) {
                 die('CSRF token validation failed');
             }
@@ -25,51 +28,71 @@ class AuthController extends Controller {
             ];
 
             // Validate Name
-            if(empty($data['name'])) {
+            if (empty($data['name'])) {
                 $data['name_err'] = 'Please enter name';
             }
 
             // Validate Email
-            if(empty($data['email'])) {
+            if (empty($data['email'])) {
                 $data['email_err'] = 'Please enter email';
-            } else {
-                if($this->userModel->findUserByEmail($data['email'])) {
+            }
+            else {
+                if ($this->userModel->findUserByEmail($data['email'])) {
                     $data['email_err'] = 'Email is already taken';
                 }
             }
 
             // Validate Password
-            if(empty($data['password'])) {
+            if (empty($data['password'])) {
                 $data['password_err'] = 'Please enter password';
-            } elseif(strlen($data['password']) < 6) {
+            }
+            elseif (strlen($data['password']) < 6) {
                 $data['password_err'] = 'Password must be at least 6 characters';
             }
 
             // Validate Confirm Password
-            if(empty($data['confirm_password'])) {
+            if (empty($data['confirm_password'])) {
                 $data['confirm_password_err'] = 'Please confirm password';
-            } else {
-                if($data['password'] != $data['confirm_password']) {
+            }
+            else {
+                if ($data['password'] != $data['confirm_password']) {
                     $data['confirm_password_err'] = 'Passwords do not match';
                 }
             }
 
             // Make sure errors are empty
-            if(empty($data['email_err']) && empty($data['name_err']) && empty($data['password_err']) && empty($data['confirm_password_err'])) {
+            if (empty($data['email_err']) && empty($data['name_err']) && empty($data['password_err']) && empty($data['confirm_password_err'])) {
+                
+                // Handle Avatar Upload
+                $data['avatar'] = 'default.png';
+                if (!empty($_FILES['avatar']['name'])) {
+                    $target_dir = "uploads/avatars/";
+                    $file_ext = strtolower(pathinfo($_FILES["avatar"]["name"], PATHINFO_EXTENSION));
+                    $new_filename = uniqid() . '.' . $file_ext;
+                    $target_file = $target_dir . $new_filename;
+                    
+                    if (move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file)) {
+                        $data['avatar'] = $new_filename;
+                    }
+                }
+
                 // Hash Password
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
                 // Register User
-                if($this->userModel->register($data)) {
+                if ($this->userModel->register($data)) {
                     header('location: ' . URLROOT . '/auth/login');
-                } else {
+                }
+                else {
                     die('Something went wrong');
                 }
-            } else {
+            }
+            else {
                 // Load view with errors
                 $this->view('auth/register', $data);
             }
-        } else {
+        }
+        else {
             $data = [
                 'name' => '',
                 'email' => '',
@@ -85,8 +108,9 @@ class AuthController extends Controller {
         }
     }
 
-    public function login() {
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    public function login()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (!isset($_POST['csrf_token']) || !verify_csrf_token($_POST['csrf_token'])) {
                 die('CSRF token validation failed');
             }
@@ -100,39 +124,41 @@ class AuthController extends Controller {
             ];
 
             // Validate Email
-            if(empty($data['email'])) {
+            if (empty($data['email'])) {
                 $data['email_err'] = 'Please enter email';
             }
 
             // Validate Password
-            if(empty($data['password'])) {
+            if (empty($data['password'])) {
                 $data['password_err'] = 'Please enter password';
             }
 
             // Check for user/email
-            if($this->userModel->findUserByEmail($data['email'])) {
-                // User found
-            } else {
+            if ($this->userModel->findUserByEmail($data['email'])) {
+            // User found
+            }
+            else {
                 $data['email_err'] = 'No user found';
             }
 
             // Make sure errors are empty
-            if(empty($data['email_err']) && empty($data['password_err'])) {
+            if (empty($data['email_err']) && empty($data['password_err'])) {
                 // Check and set logged in user
                 $loggedInUser = $this->userModel->login($data['email'], $data['password']);
 
-                if($loggedInUser) {
-                    // Create Session
+                if ($loggedInUser) {
                     $this->createUserSession($loggedInUser);
-                } else {
+                }
+                else {
                     $data['password_err'] = 'Password incorrect';
                     $this->view('auth/login', $data);
                 }
-            } else {
-                // Load view with errors
+            }
+            else {
                 $this->view('auth/login', $data);
             }
-        } else {
+        }
+        else {
             $data = [
                 'email' => '',
                 'password' => '',
@@ -144,22 +170,24 @@ class AuthController extends Controller {
         }
     }
 
-    public function createUserSession($user) {
-        session_start();
+    public function createUserSession($user)
+    {
         $_SESSION['user_id'] = $user->id;
         $_SESSION['user_email'] = $user->email;
         $_SESSION['user_name'] = $user->name;
         $_SESSION['user_role'] = $user->role;
         header('location: ' . URLROOT . '/dashboard');
+        exit;
     }
 
-    public function logout() {
-        session_start();
+    public function logout()
+    {
         unset($_SESSION['user_id']);
         unset($_SESSION['user_email']);
         unset($_SESSION['user_name']);
         unset($_SESSION['user_role']);
         session_destroy();
         header('location: ' . URLROOT . '/auth/login');
+        exit;
     }
 }

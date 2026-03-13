@@ -42,4 +42,46 @@ class User {
         }
         return false;
     }
+
+    // Get all users
+    public function getUsers() {
+        $this->db->query('SELECT * FROM users ORDER BY created_at DESC');
+        return $this->db->resultSet();
+    }
+
+    // Get all users (alias)
+    public function getAllUsers() {
+        return $this->getUsers();
+    }
+
+    // Get user by ID
+    public function getUserById($id) {
+        $this->db->query('SELECT * FROM users WHERE id = :id');
+        $this->db->bind(':id', $id);
+        return $this->db->single();
+    }
+
+    // Update user role
+    public function updateUserRole($id, $role) {
+        $this->db->query('UPDATE users SET role = :role WHERE id = :id');
+        $this->db->bind(':role', $role);
+        $this->db->bind(':id', $id);
+        return $this->db->execute();
+    }
+
+    // Delete user
+    public function deleteUser($id) {
+        $this->db->query('DELETE FROM users WHERE id = :id');
+        $this->db->bind(':id', $id);
+        return $this->db->execute();
+    }
+
+    // Update user profile
+    public function updateProfile($data) {
+        $this->db->query('UPDATE users SET name = :name, email = :email WHERE id = :id');
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':name', $data['name']);
+        $this->db->bind(':email', $data['email']);
+        return $this->db->execute();
+    }
 }

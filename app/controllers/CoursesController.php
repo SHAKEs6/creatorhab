@@ -7,12 +7,19 @@ class CoursesController extends Controller {
     }
 
     public function index() {
-        $courses = $this->courseModel->getCourses();
+        $query = isset($_GET['q']) ? trim($_GET['q']) : '';
+        
+        if (!empty($query)) {
+            $courses = $this->courseModel->searchCourses($query);
+        } else {
+            $courses = $this->courseModel->getCourses();
+        }
 
         $data = [
             'title' => 'Premium Courses',
             'description' => 'Level up your skills with our expert-led programs.',
-            'courses' => $courses
+            'courses' => $courses,
+            'search_query' => $query
         ];
         $this->view('courses/index', $data);
     }

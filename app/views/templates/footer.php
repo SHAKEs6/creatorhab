@@ -28,7 +28,7 @@
             <div class="footer-contact">
                 <h4>Contact Us</h4>
                 <ul>
-                    <li><i class="fa-brands fa-whatsapp"></i> +1 (555) 123-4567</li>
+                    <li><i class="fa-brands fa-whatsapp"></i> +254702060628</li>
                     <li><i class="fa-solid fa-envelope"></i> support@creatorhub.com</li>
                 </ul>
             </div>
