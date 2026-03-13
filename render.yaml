@@ -8,13 +8,17 @@ services:
       - key: APP_ENV
         value: production
       - key: DB_HOST
-        fromSecret: db_host
+        fromDatabase: creatorhub-db
+        property: host
       - key: DB_USER
-        fromSecret: db_user
+        fromDatabase: creatorhub-db
+        property: user
       - key: DB_PASS
-        fromSecret: db_pass
+        fromDatabase: creatorhub-db
+        property: password
       - key: DB_NAME
-        fromSecret: db_name
+        fromDatabase: creatorhub-db
+        property: database
       - key: URLROOT
         fromService:
           type: web
@@ -24,3 +28,14 @@ services:
         fromSecret: mpesa_consumer_key
       - key: MPESA_CONSUMER_SECRET
         fromSecret: mpesa_consumer_secret
+
+  - type: pserv
+    name: creatorhub-db
+    runtime: postgres
+    envVars:
+      - key: POSTGRES_DB
+        value: creator_platform
+      - key: POSTGRES_USER
+        value: creator_user
+      - key: POSTGRES_PASSWORD
+        fromSecret: db_password

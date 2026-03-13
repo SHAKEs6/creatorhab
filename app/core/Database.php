@@ -17,8 +17,8 @@ class Database {
     private $error;
 
     public function __construct(){
-        // Set DSN
-        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
+        // Set DSN for PostgreSQL
+        $dsn = 'pgsql:host=' . $this->host . ';dbname=' . $this->dbname;
         $options = array(
             PDO::ATTR_PERSISTENT => true,
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION

@@ -1,24 +1,21 @@
 -- Creator Platform Database Schema
--- Run this script in phpMyAdmin or via MySQL command line
-
-CREATE DATABASE IF NOT EXISTS creator_platform;
-USE creator_platform;
+-- PostgreSQL version - Run this script in psql or via PostgreSQL client
 
 -- Users Table
 CREATE TABLE IF NOT EXISTS users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
-    role ENUM('user', 'admin', 'super_admin') DEFAULT 'user',
+    role VARCHAR(20) DEFAULT 'user' CHECK (role IN ('user', 'admin', 'super_admin')),
     avatar VARCHAR(255) DEFAULT 'default.png',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Channels Marketplace
 CREATE TABLE IF NOT EXISTS channels (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     name VARCHAR(255) NOT NULL,
     niche VARCHAR(100) NOT NULL,
@@ -27,14 +24,14 @@ CREATE TABLE IF NOT EXISTS channels (
     revenue DECIMAL(10,2) DEFAULT 0.00,
     price DECIMAL(10,2) NOT NULL,
     description TEXT,
-    status ENUM('pending', 'approved', 'sold') DEFAULT 'pending',
+    status VARCHAR(20) DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'sold')),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- Courses
 CREATE TABLE IF NOT EXISTS courses (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
     price DECIMAL(10,2) NOT NULL,
@@ -45,7 +42,7 @@ CREATE TABLE IF NOT EXISTS courses (
 
 -- Course Enrollments
 CREATE TABLE IF NOT EXISTS enrollments (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     course_id INT NOT NULL,
     progress INT DEFAULT 0,
@@ -56,7 +53,7 @@ CREATE TABLE IF NOT EXISTS enrollments (
 
 -- Consultations
 CREATE TABLE IF NOT EXISTS consultations (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     duration_minutes INT NOT NULL,
     price DECIMAL(10,2) NOT NULL
@@ -64,12 +61,12 @@ CREATE TABLE IF NOT EXISTS consultations (
 
 -- Bookings
 CREATE TABLE IF NOT EXISTS bookings (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     consultation_id INT NOT NULL,
-    booking_date DATETIME NOT NULL,
+    booking_date TIMESTAMP NOT NULL,
     meeting_link VARCHAR(255),
-    status ENUM('pending', 'confirmed', 'completed', 'cancelled') DEFAULT 'pending',
+    status VARCHAR(20) DEFAULT 'pending' CHECK (status IN ('pending', 'confirmed', 'completed', 'cancelled')),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (consultation_id) REFERENCES consultations(id) ON DELETE CASCADE
@@ -77,10 +74,10 @@ CREATE TABLE IF NOT EXISTS bookings (
 
 -- Guides Table
 CREATE TABLE IF NOT EXISTS guides (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
-    content LONGTEXT NOT NULL,
+    content TEXT NOT NULL,
     category VARCHAR(100) NOT NULL,
     thumbnail VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -88,7 +85,7 @@ CREATE TABLE IF NOT EXISTS guides (
 
 -- Videos Table (YouTube Embedding)
 CREATE TABLE IF NOT EXISTS videos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     youtube_id VARCHAR(50) NOT NULL,
     category VARCHAR(100),
@@ -98,7 +95,7 @@ CREATE TABLE IF NOT EXISTS videos (
 
 -- Resources Table
 CREATE TABLE IF NOT EXISTS resources (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
     file_path VARCHAR(255) NOT NULL,
@@ -110,17 +107,17 @@ CREATE TABLE IF NOT EXISTS resources (
 
 -- Posts Table (News/Updates)
 CREATE TABLE IF NOT EXISTS posts (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
     image VARCHAR(255),
-    page_location ENUM('home', 'guides', 'news') DEFAULT 'home',
+    page_location VARCHAR(20) DEFAULT 'home' CHECK (page_location IN ('home', 'guides', 'news')),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Marketplace Table (Products)
 CREATE TABLE IF NOT EXISTS products (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
     price DECIMAL(10,2) NOT NULL,
@@ -131,7 +128,7 @@ CREATE TABLE IF NOT EXISTS products (
 
 -- Course Videos (Many-to-Many Relationship)
 CREATE TABLE IF NOT EXISTS course_videos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     course_id INT NOT NULL,
     video_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -164,17 +161,30 @@ INSERT INTO posts (title, content, page_location) VALUES
 
 -- Transactions/Orders
 CREATE TABLE IF NOT EXISTS transactions (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     user_id INT,
     item_name VARCHAR(255) NOT NULL,
-    item_type ENUM('course', 'consultation', 'channel', 'product') NOT NULL,
+    item_type VARCHAR(20) NOT NULL CHECK (item_type IN ('course', 'consultation', 'channel', 'product')),
     amount DECIMAL(10,2) NOT NULL,
     currency VARCHAR(3) DEFAULT 'KES',
-    payment_method ENUM('mpesa', 'paypal', 'other') DEFAULT 'mpesa',
+    payment_method VARCHAR(20) DEFAULT 'mpesa' CHECK (payment_method IN ('mpesa', 'paypal', 'other')),
     transaction_id VARCHAR(255),
     phone_number VARCHAR(255),
-    status ENUM('pending', 'completed', 'failed') DEFAULT 'pending',
+    status VARCHAR(20) DEFAULT 'pending' CHECK (status IN ('pending', 'completed', 'failed')),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    mpesa_receipt VARCHAR(255) NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
+);
+
+-- Notifications Table
+CREATE TABLE IF NOT EXISTS notifications (
+    id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    message TEXT NOT NULL,
+    type VARCHAR(50) DEFAULT 'info',
+    is_read BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
