@@ -1,5 +1,5 @@
 RewriteEngine On
-# Redirect to index.php for all non-existent files or directories
+# Redirect to router.php for all non-existent files or directories
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+RewriteRule ^(.*)$ router.php?url=$1 [QSA,L]

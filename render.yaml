@@ -1,9 +1,7 @@
 services:
   - type: web
     name: creatorhub
-    runtime: php
-    buildCommand: "echo 'No build step required'"
-    startCommand: "php -S 0.0.0.0:$PORT -t public public/router.php"
+    runtime: docker
     envVars:
       - key: APP_ENV
         value: production
