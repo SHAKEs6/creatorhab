@@ -14,10 +14,7 @@ services:
       - key: DB_NAME
         value: creator_platform_16ux
       - key: URLROOT
-        fromService:
-          type: web
-          name: creatorhub
-          property: host
+        value: https://creatorhub.onrender.com
       - key: MPESA_CONSUMER_KEY
         value: YOUR_MPESA_CONSUMER_KEY_HERE
       - key: MPESA_CONSUMER_SECRET
