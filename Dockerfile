@@ -1,26 +1,37 @@
-# Use the official PHP image with Apache
+# Use PHP 8.2 with Apache
 FROM php:8.2-apache
 
-# Install system dependencies and PostgreSQL development libraries
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     libpq-dev \
     postgresql-client \
-    && docker-php-ext-install pdo pdo_pgsql
+    git \
+    unzip \
+    && rm -rf /var/lib/apt/lists/*
 
-# Enable the PostgreSQL PDO extension
-RUN docker-php-ext-enable pdo_pgsql
+# Install PHP extensions including PostgreSQL
+RUN docker-php-ext-configure pgsql --with-pgsql=/usr/local/pgsql \
+    && docker-php-ext-install pdo pdo_pgsql pgsql
 
-# Create custom PHP configuration to ensure extension is loaded
-RUN echo "extension=pdo_pgsql.so" > /usr/local/etc/php/conf.d/pdo_pgsql.ini
+# Alternative: Manual installation if docker-php-ext-install fails
+RUN if ! php -m | grep -q pdo_pgsql; then \
+        apt-get update && apt-get install -y php8.2-pgsql php8.2-pdo-pgsql && \
+        apt-get clean && rm -rf /var/lib/apt/lists/*; \
+    fi
 
-# Verify PostgreSQL extension is installed and enabled
-RUN php -r "if (!extension_loaded('pdo_pgsql')) { echo 'PDO PostgreSQL extension not loaded\n'; exit(1); } echo 'PDO PostgreSQL extension loaded successfully\n';"
+# Enable extensions
+RUN docker-php-ext-enable pdo_pgsql pgsql
 
-# Test basic PDO functionality
-RUN php -r "try { \$pdo = new PDO('pgsql:host=localhost;dbname=test', 'test', 'test'); } catch(Exception \$e) { echo 'PDO test passed (expected error for test DB): ' . \$e->getMessage() . '\n'; }"
+# Create PHP config to ensure extensions are loaded
+RUN echo "extension=pdo.so" > /usr/local/etc/php/conf.d/10-pdo.ini && \
+    echo "extension=pdo_pgsql.so" > /usr/local/etc/php/conf.d/20-pdo_pgsql.ini && \
+    echo "extension=pgsql.so" > /usr/local/etc/php/conf.d/21-pgsql.ini
 
-# Clean up
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+# Verify extensions are loaded
+RUN php -r "if (!extension_loaded('pdo_pgsql')) { echo 'FATAL: PDO PostgreSQL extension not loaded\n'; exit(1); } echo 'SUCCESS: PDO PostgreSQL extension loaded\n';"
+
+# Test PDO connection capability
+RUN php -c /usr/local/etc/php/php.ini-production -r "try { \$pdo = new PDO('pgsql:host=127.0.0.1;dbname=postgres', 'postgres', ''); echo 'PDO test successful\n'; } catch(Exception \$e) { echo 'PDO test note: ' . \$e->getMessage() . '\n'; }"
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
