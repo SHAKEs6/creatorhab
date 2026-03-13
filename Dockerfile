@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     postgresql-client \
     && docker-php-ext-install pdo pdo_pgsql \
+    && docker-php-ext-enable pdo_pgsql \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -21,6 +22,8 @@ RUN echo '<VirtualHost *:80>\n\
     <Directory /var/www/html/public>\n\
         AllowOverride All\n\
         Require all granted\n\
+        Options Indexes FollowSymLinks\n\
+        DirectoryIndex index.php\n\
     </Directory>\n\
     ErrorLog ${APACHE_LOG_DIR}/error.log\n\
     CustomLog ${APACHE_LOG_DIR}/access.log combined\n\

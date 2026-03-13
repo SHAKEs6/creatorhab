@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo SITENAME; ?> | <?php echo isset($data['title']) ? $data['title'] : 'Start, Grow & Monetize Your YouTube Channel'; ?></title>
     <meta name="description" content="The ultimate creator platform. Learn how to grow your YouTube channel, buy monetized channels, or book an expert consultation today.">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/styles.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="<?php echo URLROOT; ?>/public/script.js"></script>
+    <script src="<?php echo URLROOT; ?>/script.js"></script>
 </head>
 <body>
 
