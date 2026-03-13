@@ -14,7 +14,7 @@ services:
       - key: DB_NAME
         value: creator_platform_16ux
       - key: URLROOT
-        value: https://creatorhub.onrender.com
+        value: https://creatorhab.onrender.com
       - key: MPESA_CONSUMER_KEY
         value: YOUR_MPESA_CONSUMER_KEY_HERE
       - key: MPESA_CONSUMER_SECRET
