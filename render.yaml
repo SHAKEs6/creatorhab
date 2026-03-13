@@ -29,13 +29,6 @@ services:
       - key: MPESA_CONSUMER_SECRET
         fromSecret: mpesa_consumer_secret
 
-  - type: pserv
+  - type: pgsql
     name: creatorhub-db
-    runtime: postgres
-    envVars:
-      - key: POSTGRES_DB
-        value: creator_platform
-      - key: POSTGRES_USER
-        value: creator_user
-      - key: POSTGRES_PASSWORD
-        fromSecret: db_password
+    ipAllowList: [] # Only accessible by other services in this project
