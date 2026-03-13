@@ -25,6 +25,6 @@ services:
           name: creatorhub
           property: host
       - key: MPESA_CONSUMER_KEY
-        fromSecret: mpesa_consumer_key
+        value: YOUR_MPESA_CONSUMER_KEY_HERE
       - key: MPESA_CONSUMER_SECRET
-        fromSecret: mpesa_consumer_secret
+        value: YOUR_MPESA_CONSUMER_SECRET_HERE
