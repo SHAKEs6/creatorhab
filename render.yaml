@@ -8,17 +8,13 @@ services:
       - key: APP_ENV
         value: production
       - key: DB_HOST
-        fromDatabase: creatorhub-db
-        property: host
+        value: dpg-d6q6pr8gjchc738okpa0-a.oregon-postgres.render.com
       - key: DB_USER
-        fromDatabase: creatorhub-db
-        property: user
+        value: creator_user
       - key: DB_PASS
-        fromDatabase: creatorhub-db
-        property: password
+        value: kg8fs00oQ87q1VpTh1zYXcRf6bknVH7C
       - key: DB_NAME
-        fromDatabase: creatorhub-db
-        property: database
+        value: creator_platform_16ux
       - key: URLROOT
         fromService:
           type: web
